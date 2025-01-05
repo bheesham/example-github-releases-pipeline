@@ -18,7 +18,7 @@ jobs:
   deploy-dev:
     name: Deploy to develop
     runs-on: ubuntu-latest
-    if: '${{ github.event_name == "push" }}'
+    if: ${{ github.event_name == 'push' }}
     steps:
       - name: print
         env:
@@ -29,7 +29,7 @@ jobs:
   deploy-stage:
     name: Deploy to stage
     runs-on: ubuntu-latest
-    if: '${{ github.event_name == "release" && github.event.prerelease == true && github.event.draft == false }}'
+    if: ${{ github.event_name == 'release' && github.event.prerelease == true && github.event.draft == false }}
     steps:
       - name: print
         env:
@@ -40,7 +40,7 @@ jobs:
   deploy-prod:
     name: Deploy to prod
     runs-on: ubuntu-latest
-    if: '${{ github.event_name == "release" && github.event.prerelease == false && github.event.draft == false}}'
+    if: ${{ github.event_name == 'release' && github.event.prerelease == false && github.event.draft == false}}
     steps:
       - name: print
         env:
