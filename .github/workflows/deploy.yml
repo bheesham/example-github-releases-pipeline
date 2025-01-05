@@ -40,7 +40,7 @@ jobs:
   deploy-prod:
     name: Deploy to prod
     runs-on: ubuntu-24.04
-    if: ${{ github.event_name == 'release' && github.event.prerelease && ! github.event.draft }}
+    if: ${{ github.event_name == 'release' && ! github.event.prerelease && ! github.event.draft }}
     steps:
       - name: print
         env:
