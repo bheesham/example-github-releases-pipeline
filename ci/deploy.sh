@@ -2,5 +2,5 @@
 
 set -eufo pipefail
 
+echo Environment: "$ENV"
 printf "Github context:\n%s\n" "$GITHUB_CONTEXT"
-printf "Input context:\n%s\n" "$INPUT_CONTEXT"
