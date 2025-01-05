@@ -1,0 +1,19 @@
+on:
+  workflow_call:
+    inputs:
+      env:
+        type: string
+        required: true
+
+jobs:
+  deploy:
+    environment: ${{ inputs.env }}
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4  
+      - name: deploy
+        env:
+          ENV: ${{ inputs.env }}
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: ./ci/deploy.sh
