@@ -16,21 +16,16 @@ concurrency:
 
 jobs:
   dev:
-    name: Deploy to develop
     if: ${{ github.event_name == 'push' }}
     uses: ./.github/workflows/deploy-job.yml
     with:
       env: dev
   stage:
-    name: Deploy to stage
-    runs-on: ubuntu-24.04
     if: ${{ github.event_name == 'release' && github.event.release.prerelease && ! github.event.release.draft }}
     uses: ./.github/workflows/deploy-job.yml
     with:
       env: stage
   prod:
-    name: Deploy to prod
-    runs-on: ubuntu-24.04
     if: ${{ github.event_name == 'release' && ! github.event.release.prerelease && ! github.event.release.draft }}
     uses: ./.github/workflows/deploy-job.yml
     with:
