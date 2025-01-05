@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     outputs:
-      docker_image: ${{ steps.build.outputs.docker_image }}
+      image: ${{ steps.build.outputs.image }}
     steps:
       - name: Check out the repository to the runner
         uses: actions/checkout@v4  
@@ -23,18 +23,18 @@ jobs:
     uses: ./.github/workflows/deploy-job.yml
     with:
       env: dev
-      image: ${{ needs.build.outputs.docker_image }}
+      image: ${{ needs.build.outputs.image }}
   deploy-stage:
     if: ${{ github.event_name == 'release' && github.event.release.prerelease && ! github.event.release.draft }}
     needs: [build]
     uses: ./.github/workflows/deploy-job.yml
     with:
       env: stage
-      image: ${{ needs.build.outputs.docker_image }}
+      image: ${{ needs.build.outputs.image }}
   deploy-prod:
     if: ${{ github.event_name == 'release' && ! github.event.release.prerelease && ! github.event.release.draft }}
     needs: [build]
     uses: ./.github/workflows/deploy-job.yml
     with:
       env: prod
-      image: ${{ needs.build.outputs.docker_image }}
+      image: ${{ needs.build.outputs.image }}

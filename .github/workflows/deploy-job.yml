@@ -4,7 +4,7 @@ on:
       env:
         type: string
         required: true
-      docker_image:
+      image:
         type: string
         required: true
 
@@ -18,6 +18,6 @@ jobs:
       - name: deploy
         env:
           ENV: ${{ inputs.env }}
-          DOCKER_IMAGE: ${{ inputs.docker_image }}
+          IMAGE: ${{ inputs.image }}
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: ./ci/deploy.sh
