@@ -24,7 +24,7 @@ jobs:
       - name: print
         env:
           GITHUB_CONTEXT: '${{ toJson(github) }}'
-        run: ci/deploy.sh
+        run: ./ci/deploy.sh
   deploy-stage:
     name: Deploy to stage
     environment: stage
@@ -34,7 +34,7 @@ jobs:
       - name: print
         env:
           GITHUB_CONTEXT: '${{ toJson(github) }}'
-        run: ci/deploy.sh
+        run: ./ci/deploy.sh
   deploy-prod:
     name: Deploy to prod
     environment: prod
@@ -44,4 +44,4 @@ jobs:
       - name: print
         env:
           GITHUB_CONTEXT: '${{ toJson(github) }}'
-        run: ci/deploy.sh
+        run: ./ci/deploy.sh
