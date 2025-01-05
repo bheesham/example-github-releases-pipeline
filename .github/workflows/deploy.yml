@@ -15,10 +15,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy-dev: &deploy
+  deploy-dev:
     name: Deploy to develop
     runs-on: ubuntu-latest
-    steps:
+    steps: &steps
       - name: print
         env:
           GITHUB_CONTEXT: '${{ toJson(github) }}'
@@ -26,8 +26,10 @@ jobs:
           echo Environment "$ENVIRONMENT"
           echo "$GITHUB_CONTEXT"
   deploy-stage:
-    <<: *deploy
     name: Deploy to stage
+    runs-on: ubuntu-latest
+    steps: *steps
   deploy-prod:
-    <<: *deploy
     name: Deploy to prod
+    runs-on: ubuntu-latest
+    steps: *steps
