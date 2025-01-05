@@ -1,5 +1,6 @@
 name: Deploy
 
+# https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows
 on:
   push:
     branches: [master]
@@ -9,24 +10,24 @@ on:
 env:
   ENVIRONMENT: '$(whoami)'
 
-defaults:
-  runs-on: ubuntu-latest
-
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  deploy-dev:
+  deploy-dev: &deploy
     name: Deploy to develop
-    steps: &steps
+    runs-on: ubuntu-latest
+    steps:
       - name: print
         env:
           GITHUB_CONTEXT: '${{ toJson(github) }}'
-        run: echo "$GITHUB_CONTEXT" "$ENVIRONMENT"
+        run: |
+          echo Environment "$ENVIRONMENT"
+          echo "$GITHUB_CONTEXT"
   deploy-stage:
+    <<: *deploy
     name: Deploy to stage
-    steps: *steps
   deploy-prod:
-    name: Deploy to stage
-    steps: *steps
+    <<: *deploy
+    name: Deploy to prod
