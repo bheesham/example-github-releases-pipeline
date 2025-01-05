@@ -1,4 +1,4 @@
-name: Test
+name: Deploy
 
 on:
   push:
@@ -6,11 +6,27 @@ on:
   release:
     types: [published]
 
+env:
+  ENVIRONMENT: '$(whoami)'
+
+defaults:
+  runs-on: ubuntu-latest
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
+  deploy-dev:
+    name: Deploy to develop
+    steps: &steps
       - name: print
         env:
           GITHUB_CONTEXT: '${{ toJson(github) }}'
-        run: echo "$GITHUB_CONTEXT"
+        run: echo "$GITHUB_CONTEXT" "$ENVIRONMENT"
+  deploy-stage:
+    name: Deploy to stage
+    steps: *steps
+  deploy-prod:
+    name: Deploy to stage
+    steps: *steps
