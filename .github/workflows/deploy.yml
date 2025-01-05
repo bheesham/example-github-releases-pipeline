@@ -18,7 +18,7 @@ jobs:
   deploy-dev:
     name: Deploy to develop
     runs-on: ubuntu-latest
-    steps: &steps
+    steps:
       - name: print
         env:
           GITHUB_CONTEXT: '${{ toJson(github) }}'
@@ -28,8 +28,20 @@ jobs:
   deploy-stage:
     name: Deploy to stage
     runs-on: ubuntu-latest
-    steps: *steps
+    steps:
+      - name: print
+        env:
+          GITHUB_CONTEXT: '${{ toJson(github) }}'
+        run: |
+          echo Environment "$ENVIRONMENT"
+          echo "$GITHUB_CONTEXT"
   deploy-prod:
     name: Deploy to prod
     runs-on: ubuntu-latest
-    steps: *steps
+    steps:
+      - name: print
+        env:
+          GITHUB_CONTEXT: '${{ toJson(github) }}'
+        run: |
+          echo Environment "$ENVIRONMENT"
+          echo "$GITHUB_CONTEXT"
