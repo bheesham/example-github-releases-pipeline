@@ -19,17 +19,17 @@ concurrency:
 
 jobs:
   dev:
-    if: ${{ github.event_name == 'push' }}
+    if: ${{ github.event_name == 'push' && github.event.workflow_run.conclusion == 'success' }}
     uses: ./.github/workflows/deploy-job.yml
     with:
       env: dev
   stage:
-    if: ${{ github.event_name == 'release' && github.event.release.prerelease && ! github.event.release.draft }}
+    if: ${{ github.event_name == 'release' && github.event.workflow_run.conclusion == 'success' && github.event.release.prerelease && ! github.event.release.draft }}
     uses: ./.github/workflows/deploy-job.yml
     with:
       env: stage
   prod:
-    if: ${{ github.event_name == 'release' && ! github.event.release.prerelease && ! github.event.release.draft }}
+    if: ${{ github.event_name == 'release' && github.event.workflow_run.conclusion == 'success' && ! github.event.release.prerelease && ! github.event.release.draft }}
     uses: ./.github/workflows/deploy-job.yml
     with:
       env: prod
