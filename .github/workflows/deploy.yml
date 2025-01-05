@@ -17,7 +17,7 @@ concurrency:
 jobs:
   deploy-dev:
     name: Deploy to develop
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: ${{ github.event_name == 'push' }}
     steps:
       - name: print
@@ -28,7 +28,7 @@ jobs:
           echo "$GITHUB_CONTEXT"
   deploy-stage:
     name: Deploy to stage
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: ${{ github.event_name == 'release' && github.event.prerelease == true && github.event.draft == false }}
     steps:
       - name: print
@@ -39,7 +39,7 @@ jobs:
           echo "$GITHUB_CONTEXT"
   deploy-prod:
     name: Deploy to prod
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: ${{ github.event_name == 'release' && github.event.prerelease == false && github.event.draft == false}}
     steps:
       - name: print
