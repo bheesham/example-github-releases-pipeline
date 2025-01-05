@@ -15,7 +15,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy-dev:
+  dev:
     name: Deploy to develop
     environment: dev
     runs-on: ubuntu-24.04
@@ -28,7 +28,7 @@ jobs:
           ENV: dev
           GITHUB_CONTEXT: '${{ toJson(github) }}'
         run: ./ci/deploy.sh
-  deploy-stage:
+  stage:
     name: Deploy to stage
     environment: stage
     runs-on: ubuntu-24.04
@@ -41,7 +41,7 @@ jobs:
           ENV: stage
           GITHUB_CONTEXT: '${{ toJson(github) }}'
         run: ./ci/deploy.sh
-  deploy-prod:
+  prod:
     name: Deploy to prod
     environment: prod
     runs-on: ubuntu-24.04
